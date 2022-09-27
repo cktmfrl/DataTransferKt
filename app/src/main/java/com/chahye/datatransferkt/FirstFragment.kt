@@ -1,7 +1,9 @@
 package com.chahye.datatransferkt
 
+import android.Manifest
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
@@ -15,6 +17,12 @@ class FirstFragment : Fragment(R.layout.fragment_first) {
         imageView.setImageURI(it)
     }
 
+    val requestPermission = registerForActivityResult(ActivityResultContracts.RequestPermission()) { granted ->
+        if (granted) {
+            Toast.makeText(requireContext(), "성공", Toast.LENGTH_SHORT).show()
+        }
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -26,6 +34,10 @@ class FirstFragment : Fragment(R.layout.fragment_first) {
         button_photo.setOnClickListener {
             // MIME TYPE
             getContent.launch("image/*")
+        }
+
+        button_permission.setOnClickListener {
+            requestPermission.launch(Manifest.permission.ACCESS_COARSE_LOCATION)
         }
 
     }
