@@ -17,11 +17,17 @@ class FirstFragment : Fragment(R.layout.fragment_first) {
         imageView.setImageURI(it)
     }
 
-    val requestPermission = registerForActivityResult(ActivityResultContracts.RequestPermission()) { granted ->
-        if (granted) {
-            Toast.makeText(requireContext(), "성공", Toast.LENGTH_SHORT).show()
+    val requestPermission =
+        registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { map ->
+            if (map[Manifest.permission.ACCESS_COARSE_LOCATION]!!) {
+                Toast.makeText(requireContext(), "ACCESS_COARSE_LOCATION 성공", Toast.LENGTH_SHORT)
+                    .show()
+            }
+            if (map[Manifest.permission.READ_EXTERNAL_STORAGE]!!) {
+                Toast.makeText(requireContext(), "READ_EXTERNAL_STORAGE 성공", Toast.LENGTH_SHORT)
+                    .show()
+            }
         }
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -37,9 +43,9 @@ class FirstFragment : Fragment(R.layout.fragment_first) {
         }
 
         button_permission.setOnClickListener {
-            requestPermission.launch(Manifest.permission.ACCESS_COARSE_LOCATION)
+            requestPermission.launch(arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION,
+                Manifest.permission.READ_EXTERNAL_STORAGE))
         }
-
     }
 
 }
