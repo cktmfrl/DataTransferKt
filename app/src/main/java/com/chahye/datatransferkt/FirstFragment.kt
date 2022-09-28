@@ -13,8 +13,8 @@ import kotlinx.android.synthetic.main.fragment_first.*
 
 class FirstFragment : Fragment(R.layout.fragment_first) {
 
-    val getContent = registerForActivityResult(ActivityResultContracts.GetContent()) {
-        imageView.setImageURI(it)
+    val getContent = registerForActivityResult(ActivityResultContracts.GetContent()) { uri ->
+        imageView.setImageURI(uri)
     }
 
     val requestPermission =
@@ -43,8 +43,12 @@ class FirstFragment : Fragment(R.layout.fragment_first) {
         }
 
         button_permission.setOnClickListener {
-            requestPermission.launch(arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION,
-                Manifest.permission.READ_EXTERNAL_STORAGE))
+            requestPermission.launch(
+                arrayOf(
+                    Manifest.permission.ACCESS_COARSE_LOCATION,
+                    Manifest.permission.READ_EXTERNAL_STORAGE
+                )
+            )
         }
     }
 
