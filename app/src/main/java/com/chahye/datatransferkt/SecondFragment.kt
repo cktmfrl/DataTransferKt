@@ -13,7 +13,7 @@ import kotlinx.android.synthetic.main.fragment_second.*
 
 class SecondFragment : Fragment(R.layout.fragment_second) {
 
-    val getStartActivityForResult =
+    val startForResult =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { activityResult ->
             activityResult.data?.let { intent ->
                 intent.extras?.let { bundle ->
@@ -40,8 +40,8 @@ class SecondFragment : Fragment(R.layout.fragment_second) {
 
         button_result.setOnClickListener {
             Intent(requireContext(), ResultActivity::class.java).apply {
-                this.putExtra("message", "Hi~ I'm SecondFragment")
-                getStartActivityForResult.launch(this)
+                putExtra("message", "Hello~ ResultActivity")
+                startForResult.launch(this)
             }
         }
 

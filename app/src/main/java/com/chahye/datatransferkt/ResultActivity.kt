@@ -16,7 +16,7 @@ class ResultActivity : AppCompatActivity() {
 
         button_back.setOnClickListener {
             val intent = Intent()
-            intent.putExtra("message", "Hey, I'm ResultActivity!")
+            intent.putExtra("message", "Hey, SecondFragment")
             setResult(Activity.RESULT_OK, intent)
             finish()
         }
